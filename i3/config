@@ -1,24 +1,68 @@
 ## i3 config file (v4)
+# https://i3wm.org/docs/userguide.html#configuring
 
-# Set font
-font pango:monospace 8
+## FONTS
+# Awesome Font
+# Download link: (https://fontawesome.com) 
+# Check cheatsheet: (https://fontawesome.com/cheatsheet?from=io)
+font pango:Awesome 8
+# Yosemite San Francisco Font
+# Download link: (https://github.com/supermarin/YosemiteSanFranciscoFont)
+font pango:System San Francisco Display 8
 
-## BINDINGS
-# Set Win key as modifier
-set $mod Mod4
+## ASSIGNMENTS
+# Assign terminals to workspace 1
+assign [class="URxvt"] $ws1
 
-# Set cursor
-set $up k 
-set $down j 
+# Assign browser to workspace 2
+assign [class="Firefox"] $ws2 
+
+## SETTINGS
+# Set default border style for windows
+default_border none
+default_floating_border pixel 1
+
+# Set default orientation
+default_orientation horizontal
+
+# Set floating modifier
+floating_modifier Mod1
+
+# Set default layout
+workspace_layout default
+
+#for_window <criteria> <command>
+#for_window [class="Xterm"] floating enable
+
+## VARIABLES
+# Set variable for workspaces
+set $ws1 "1" 
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+# Set variables for cursor
+set $up k
+set $down j
 set $left h
 set $right l
 
-# Use Mouse+Mod1 to drag floating windows to their wanted position
-floating_modifier Mod1
+# Set Win key as modifier
+set $mod Mod4
 
+# Set variable for --no-startup-id
+set $nsi --no-startup-id
+
+## BINDINGS
 # Start a terminal
-#bindsym $mod+Return exec sakura
-bindsym $mod+Return exec xterm
+#bindsym $mod+Return exec xterm
+bindsym $mod+Return exec urxvt
 
 # Kill focused window
 bindsym $mod+Shift+q kill
@@ -61,18 +105,6 @@ bindsym $mod+space focus mode_toggle
 # focus the parent container
 bindsym $mod+a focus parent
 
-set $ws1 "1 - test"
-set $ws2 "2"
-set $ws3 "3"
-set $ws4 "4"
-set $ws5 "5"
-set $ws6 "6"
-set $ws7 "7"
-set $ws8 "8"
-set $ws9 "9"
-set $ws10 "10"
-
-
 # switch to workspace
 bindsym $mod+1 workspace $ws1
 bindsym $mod+2 workspace $ws2
@@ -104,6 +136,7 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym Mod1+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
+## MODES
 # resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
@@ -128,13 +161,16 @@ bindsym Mod1+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        status_command i3status
+	i3bar_command ~/.config/i3/lemonbar/i3_lemonbar.py
 	position top
 }
 
 
 
 ## EXECUTABLES
-exec feh --no-startup-id --bg-fill /home/minho/Pictures/wallpaper.jpg
+# Set a wallpaper
+exec feh $nsi --bg-scale /home/minho/.config/i3/wallpaper/wallpaper.jpg
 
+# Execute compton
+exec compton $nsi
 
